@@ -24,6 +24,14 @@ func reqHandler(w http.ResponseWriter, r *http.Request) {
 		switch page {
 		case "":
 			page = "all"
+		case "top5-musicians":
+			page = "top5-musicians-by-total-sales"
+		case "greatest-hits":
+			page = "songs-with-sales-over-20m"
+		case "odd-years":
+			page = "hits-from-odd-numbered-years"
+		case "2nd-person":
+			page = "songs-whose-title-contains-you"
 		case "favicon.ico":
 			w.WriteHeader(http.StatusNotFound)
 			return
@@ -55,7 +63,23 @@ func render(arg string) string {
 		log.Fatalf("SQL execution failed with error: %s\n", err)
 	}
 	results := string(stdout.Bytes())
-	return fmt.Sprintf("<!DOCTYPE html><html>\n<table>\n%s</table>\n</html>\n", results)
+	return fmt.Sprintf(`<!DOCTYPE html>
+<html>
+<table style="float:left">
+%s</table>
+
+<div style="float:left; margin-left:2em;">
+<h1>Show only:</h1>
+<ul style="line-height:1.5">
+	<li><a href="/top5-musicians">The top five musicians by total sales</a></li>
+	<li><a href="/greatest-hits">Songs with sales over $20 million</a></li>
+	<li><a href="/odd-years">Songs released during odd-numbered years</a></li>
+	<li><a href="/2nd-person">Songs whose title contains the word "you"</a></li>
+</ul>
+</div>
+</html>
+`,
+		results)
 }
 
 func main() {
