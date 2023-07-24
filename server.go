@@ -32,6 +32,12 @@ func reqHandler(w http.ResponseWriter, r *http.Request) {
 			page = "hits-from-odd-numbered-years"
 		case "2nd-person":
 			page = "songs-whose-title-contains-you"
+		case "mean-sales-by-year":
+			page = "mean-sales-by-year-in-rev-chron"
+		case "top-hits-by-artist":
+			page = "best-selling-song-over-20m-per-artist"
+		case "1-hit-wonders":
+			page = "songs-by-musicians-with-no-other-hits"
 		case "favicon.ico":
 			w.WriteHeader(http.StatusNotFound)
 			return
@@ -71,10 +77,13 @@ func render(arg string) string {
 <div style="float:left; margin-left:2em;">
 <h1>Show only:</h1>
 <ul style="line-height:1.5">
-	<li><a href="/top5-musicians">The top five musicians by total sales</a></li>
-	<li><a href="/greatest-hits">Songs with sales over $20 million</a></li>
-	<li><a href="/odd-years">Songs released during odd-numbered years</a></li>
 	<li><a href="/2nd-person">Songs whose title contains the word "you"</a></li>
+	<li><a href="/odd-years">Songs released during odd-numbered years</a></li>
+	<li><a href="/greatest-hits">Songs with sales over $20 million, sorted in reverse chronological order</a></li>
+	<li><a href="/mean-sales-by-year">Mean sales revenue per year in reverse chronological order</a></li>
+	<li><a href="/top5-musicians">The top five musicians by total sales</a></li>
+	<li><a href="/top-hits-by-artist">Best-selling song (with sales over $20M) per musician</a></li>
+	<li><a href="/1-hit-wonders">Songs by musicians who had only 1 hit song, sorted by sales revenue</a></li>
 </ul>
 </div>
 </html>
