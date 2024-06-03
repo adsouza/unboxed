@@ -71,6 +71,10 @@ func render(arg string) string {
 	results := string(stdout.Bytes())
 	return fmt.Sprintf(`<!DOCTYPE html>
 <html>
+<style>
+        table td + td { border-left:1px dashed lightgrey; padding: 0 1ex; }
+</style>
+
 <table style="float:left">
 %s</table>
 
